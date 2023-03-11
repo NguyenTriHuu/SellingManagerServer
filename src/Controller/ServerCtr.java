@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import ServerDao.BillDao;
+import entities.HoaDon;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -29,15 +31,27 @@ public class ServerCtr extends Thread {
 
     public void run() {
         try {
-            InputStreamReader in = new InputStreamReader(socket.getInputStream());
-            BufferedReader bf = new BufferedReader(in);
-            String mes=(String)bf.readLine();
-            if(mes.equals("test")){
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            String mes = (String) ois.readObject();
+            if (mes.equals("test")) {
                 PrintWriter pr = new PrintWriter(socket.getOutputStream());
                 pr.println("ok");
                 pr.flush();
+            } else if (mes.equals("SaveBill")) {              
+                try {                  
+                  HoaDon  bill = (HoaDon) ois.readObject();
+                    BillDao.save(bill);                   
+                    PrintWriter pr = new PrintWriter(socket.getOutputStream());
+                    pr.println("Lưu Thành công");
+                    pr.flush();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    PrintWriter pr = new PrintWriter(socket.getOutputStream());
+                    pr.println("Lưu Thất bại");
+                    pr.flush();
+                }
             }
-            
+
         } catch (Exception e) {
             System.err.println("Request Processing Error: " + e);
         }

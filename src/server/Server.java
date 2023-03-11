@@ -5,6 +5,8 @@
 package server;
 
 import Controller.ServerCtr;
+import ServerDao.BillDao;
+import entities.HoaDon;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,10 +18,9 @@ public class Server {
     public static final int NUM_OF_THREAD = 4;
     public static final int SERVER_PORT = 8888;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ExecutorService executor = Executors.newFixedThreadPool(NUM_OF_THREAD);
         ServerSocket serverSocket = null;
-
         try {
             System.out.println("Binding to port " + SERVER_PORT + ", please wait  ...");
             serverSocket = new ServerSocket(SERVER_PORT);
