@@ -14,7 +14,8 @@ import javax.swing.JOptionPane;
  */
 
 public class DbOperations {
-    private static String connectionUrl = "jdbc:sqlserver://DESKTOP-OMSFQEI\\SQLEXPRESS:1433;databaseName=SellingManager;user=sa;password=123;encrypt=true;trustServerCertificate=true";
+    private static String connectionUrl = "jdbc:sqlserver://DESKTOP-OMSFQEI\\SQLEXPRESS:1433;databaseName=SellingManager;user=sa;password=123;"
+            + "encrypt=true;trustServerCertificate=true";
     private static String USERNAME = "sa";
     private static String PASSWORD = "123";
     public static void setordeletdata(String Query, String msg) {    

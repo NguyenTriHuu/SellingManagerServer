@@ -5,6 +5,7 @@
 package Controller;
 
 import ServerDao.BillDao;
+import ServerDao.ProductDao;
 import entities.HoaDon;
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,6 +16,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import javax.annotation.processing.Messager;
 
 /**
@@ -37,10 +39,10 @@ public class ServerCtr extends Thread {
                 PrintWriter pr = new PrintWriter(socket.getOutputStream());
                 pr.println("ok");
                 pr.flush();
-            } else if (mes.equals("SaveBill")) {              
-                try {                  
-                  HoaDon  bill = (HoaDon) ois.readObject();
-                    BillDao.save(bill);                   
+            } else if (mes.equals("SaveBill")) {
+                try {
+                    HoaDon bill = (HoaDon) ois.readObject();
+                    BillDao.save(bill);
                     PrintWriter pr = new PrintWriter(socket.getOutputStream());
                     pr.println("Lưu Thành công");
                     pr.flush();
@@ -50,6 +52,12 @@ public class ServerCtr extends Thread {
                     pr.println("Lưu Thất bại");
                     pr.flush();
                 }
+            } else if (mes.equals("SearchNameProduct")) {
+                String name = (String) ois.readObject();
+                ArrayList<String> list = ProductDao.SearchNameProduct(name);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                oos.writeObject(list);
+                oos.flush();
             }
 
         } catch (Exception e) {
