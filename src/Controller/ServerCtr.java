@@ -8,6 +8,7 @@ import ServerDao.BillDao;
 import ServerDao.DbOperations;
 import ServerDao.ProductDao;
 import ServerDao.UserDao;
+import entities.HangHoa;
 import entities.HoaDon;
 import entities.NhanVien;
 import java.io.BufferedReader;
@@ -82,6 +83,12 @@ public class ServerCtr extends Thread {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }else if(mes.equals("getProductByName")){
+                String name = (String) ois.readObject();
+                ArrayList<HangHoa> list = ProductDao.SearchProductByName(name);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                oos.writeObject(list);
+                oos.flush();
             }
 
         } catch (Exception e) {

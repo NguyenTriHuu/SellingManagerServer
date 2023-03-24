@@ -5,12 +5,8 @@
 package ServerDao;
 
 import entities.HoaDon;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,8 +27,8 @@ public class BillDao {
     
     public static void save(HoaDon bill) throws ClassNotFoundException {
             try {
-                String Query = "insert into hoadon (nv_maso,lhd_maso,tt_maso,hd_ghichu,hd_ngaylap,hd_tongtien) values ('"+bill.getNv_maso()+"','"+bill.getLhd_maso()+"','"+bill.getTt_maso()+"','"+bill.getHd_ghichu()+"',"
-                        + "'"+bill.getHd_ngaylap()+"','"+bill.getHd_tongtien()+"')";              
+                String Query = "insert into hoadon (ltt_maso,kh_maso,nv_maso,hd_ghichu,hd_tongtien,hd_ngaylap) values ('"+bill.getLtt_maso()+"','"+bill.getKh_maso()+"','"+bill.getNv_maso()+"','"+bill.getHd_ghichu()+"',"
+                        + "'"+bill.getHd_tongtien()+"','"+bill.getHd_ngaylap()+"')";              
             DbOperations.setordeletdata(Query, "Hóa đơn được tạo thành công!");
         } catch (Exception e) {
             e.printStackTrace();
