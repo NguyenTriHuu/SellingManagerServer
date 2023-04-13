@@ -22,10 +22,7 @@ public class DbOperations {
         try {
             Connection con = (Connection) ConnectionProvider.getConnection(connectionUrl,USERNAME,PASSWORD);
             Statement st = con.createStatement();
-            st.executeUpdate(Query);
-            if (!msg.equals("")) {
-                JOptionPane.showMessageDialog(null, msg);
-            }
+            st.executeUpdate(Query);           
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e, "Message", JOptionPane.ERROR_MESSAGE);
         }
